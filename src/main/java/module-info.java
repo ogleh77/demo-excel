@@ -7,5 +7,6 @@ module com.example.demoexcel {
     requires org.xerial.sqlitejdbc;
 
     opens com.example.demoexcel to javafx.fxml;
+    opens com.example.demoexcel.controllers to javafx.fxml;
     exports com.example.demoexcel;
 }
