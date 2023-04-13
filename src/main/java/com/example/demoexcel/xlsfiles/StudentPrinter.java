@@ -15,6 +15,7 @@ public class StudentPrinter implements PrinterClass<Students> {
     private Workbook workbook;
     private static CellStyle headerCellStyle;
     private static CellStyle regulaCellStyle;
+    int counter = 2;
 
     @Override
     public void print(ObservableList<Students> students, File file) throws IOException, InterruptedException {
@@ -31,11 +32,9 @@ public class StudentPrinter implements PrinterClass<Students> {
         }
 
 
-        int counter = 2;
         for (Students student : students) {
 
             Row row = sheet.createRow(counter);
-
             createValueCell(row, student);
             counter++;
             System.out.println("Printing " + student.studentName());
@@ -47,6 +46,18 @@ public class StudentPrinter implements PrinterClass<Students> {
 
     @Override
     public void createHeader(Row row) {
+        headerCell(row, headerCellStyle);
+
+        Cell cell4 = row.createCell(3);
+        cell4.setCellValue("Lap top name");
+        cell4.setCellStyle(headerCellStyle);
+
+        Cell cell5 = row.createCell(4);
+        cell5.setCellValue("price");
+        cell5.setCellStyle(headerCellStyle);
+    }
+
+    public static void headerCell(Row row, CellStyle headerCellStyle) {
         Cell cell = row.createCell(0);
         cell.setCellValue("Student name");
         cell.setCellStyle(headerCellStyle);
@@ -58,7 +69,6 @@ public class StudentPrinter implements PrinterClass<Students> {
         Cell cell3 = row.createCell(2);
         cell3.setCellValue("Grade");
         cell3.setCellStyle(headerCellStyle);
-
     }
 
     @Override
@@ -74,7 +84,9 @@ public class StudentPrinter implements PrinterClass<Students> {
         Cell cell3 = row.createCell(2);
         cell3.setCellValue(students.grade());
         cell3.setCellStyle(regulaCellStyle);
+
     }
+
 
     @Override
     public void createSheet(String sheetName) {
@@ -82,6 +94,9 @@ public class StudentPrinter implements PrinterClass<Students> {
             sheet = workbook.createSheet(sheetName);
             sheet.setColumnWidth(0, 5000);
             sheet.setColumnWidth(1, 5000);
+            sheet.setColumnWidth(2, 5000);
+            sheet.setColumnWidth(3, 5000);
+            sheet.setColumnWidth(4, 5000);
         }
     }
 
@@ -101,14 +116,14 @@ public class StudentPrinter implements PrinterClass<Students> {
 
     protected void initHeaderStyle() {
 
-        CellStyle headerCellStyle = workbook.createCellStyle();
+        headerCellStyle = workbook.createCellStyle();
         headerCellStyle.setFont(getFont(true, 15));
     }
 
 
     protected void initCellStyle() {
 
-        CellStyle regulaCellStyle = workbook.createCellStyle();
+        regulaCellStyle = workbook.createCellStyle();
         regulaCellStyle.setFont(getFont(false, 14));
     }
 }

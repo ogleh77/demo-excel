@@ -23,7 +23,7 @@ public final class Students {
 
     @Override
     public String toString() {
-        return studentName+" date "+dateJoined+"\n";
+        return studentName+" date "+dateJoined+"\n"+laptops;
     }
 
     public int id() {
@@ -44,6 +44,10 @@ public final class Students {
 
     public ObservableList<Laptop> getLaptops() {
         return laptops;
+    }
+
+    public void setLaptops(ObservableList<Laptop> laptops) {
+        this.laptops = laptops;
     }
 
     @Override

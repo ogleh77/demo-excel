@@ -14,7 +14,11 @@ public class Model {
         if (students == null) {
             students = FXCollections.observableArrayList();
             for (int i = 0; i < 11; i++) {
-                students.add(new Students(i, "Student " + i, LocalDate.now(), (Math.random() * 10)));
+                Students student = new Students(i, "Student " + i, LocalDate.now(), (Math.random() * 10));
+
+                student.setLaptops(Laptop());
+                students.add(student);
+
             }
         }
 
@@ -24,7 +28,7 @@ public class Model {
 
     public static ObservableList<Laptop> Laptop() {
         ObservableList<Laptop> laptops = FXCollections.observableArrayList();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             laptops.add(new Laptop("Laptop " + i, 10 * i));
         }
         return laptops;

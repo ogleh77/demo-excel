@@ -30,6 +30,6 @@ public class Laptop {
         return "Laptop{" +
                 "lName='" + lName + '\'' +
                 ", price=" + price +
-                '}';
+                '}'+"\n";
     }
 }
