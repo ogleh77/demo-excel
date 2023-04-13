@@ -1,8 +1,6 @@
 package com.example.demoexcel;
 
-import com.example.demoexcel.data.Laptop;
 import com.example.demoexcel.data.Students;
-import com.example.demoexcel.main.LaptopPrinter;
 import com.example.demoexcel.main.Model;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
