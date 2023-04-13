@@ -18,5 +18,6 @@
       <CheckBox fx:id="students" layoutX="243.0" layoutY="66.0" mnemonicParsing="false" text="students" />
       <CheckBox fx:id="laptops" layoutX="244.0" layoutY="100.0" mnemonicParsing="false" text="laptops" />
       <Label fx:id="pintStatus" layoutX="94.0" layoutY="218.0" text="Printing" />
+      <Button layoutX="217.0" layoutY="190.0" onAction="#addHandler" text="Add" />
    </children>
 </AnchorPane>

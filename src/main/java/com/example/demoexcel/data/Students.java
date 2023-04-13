@@ -23,12 +23,7 @@ public final class Students {
 
     @Override
     public String toString() {
-        return "Students{" +
-                "id=" + id +
-                ", studentName='" + studentName + '\'' +
-                ", dateJoined=" + dateJoined +
-                ", grade=" + grade +
-                '}';
+        return studentName+" date "+dateJoined+"\n";
     }
 
     public int id() {

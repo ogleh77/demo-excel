@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -33,29 +34,18 @@ public class HelloController implements Initializable {
     @FXML
     private CheckBox students;
 
+
     @FXML
     void exportHandler() {
-        selectedFile = new File(name.getText() + ".xls");
-        if (selectedFile != null) {
-            if (laptops.isSelected()) {
-                if (start) {
-                    laptopService.restart();
-                    progress.progressProperty().bind(service.progressProperty());
-                } else {
-                    laptopService.start();
-                    progress.progressProperty().bind(service.progressProperty());
-                    start = true;
-                }
-            } else if (students.isSelected()) {
-                if (start) {
-                    service.restart();
-                    progress.progressProperty().bind(service.progressProperty());
-                } else {
-                    service.start();
-                    progress.progressProperty().bind(service.progressProperty());
-                    start = true;
-                }
-            }
+        selectedFile = new File("/Users/mrd/Desktop/students.xls");
+
+
+        if (start) {
+            runner.restart();
+        } else {
+            runner.start();
+            start = true;
+        }
 
 
 //        FileChooser fileChooser = new FileChooser();
@@ -64,9 +54,12 @@ public class HelloController implements Initializable {
 //        selectedFile = fileChooser.showSaveDialog(stage);
 
 
-        }
+    }
 
-
+    @FXML
+    void addHandler() {
+        Students student = new Students(22, name.getText(), LocalDate.now().plusDays(44), 10 * 32);
+        Model.insertStudents(student);
     }
 
 
@@ -76,7 +69,7 @@ public class HelloController implements Initializable {
             stage = (Stage) name.getScene().getWindow();
         });
 
-        service.setOnSucceeded(e -> {
+        runner.setOnSucceeded(e -> {
             System.out.println("Students is Done");
         });
         laptopService.setOnSucceeded(e -> {
@@ -146,6 +139,30 @@ public class HelloController implements Initializable {
                     }
 
 
+                    return null;
+                }
+            };
+        }
+    };
+
+
+    private final Service<Void> runner = new Service<>() {
+        @Override
+        protected Task<Void> createTask() {
+
+            return new Task<>() {
+                @Override
+                protected Void call() {
+                    ObservableList<Students> students = Model.students();
+
+                    com.example.demoexcel.xlsfiles.StudentPrinter studentPrinter = new com.example.demoexcel.xlsfiles.StudentPrinter();
+
+                    try {
+                        studentPrinter.print(students, selectedFile);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     return null;
                 }
             };
